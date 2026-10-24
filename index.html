@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asado y Fernet | Comunidad HaxBall & Discord</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        discord: {
+                            dark: '#1e1f22',
+                            main: '#2b2d31',
+                            light: '#313338',
+                            hover: '#35373c',
+                            accent: '#5865F2',
+                            green: '#23a55a'
+                        },
+                        pitch: {
+                            green: '#15803d',
+                            dark: '#14532d',
+                            line: 'rgba(255, 255, 255, 0.35)'
+                        },
+                        team: {
+                            red: '#ef4444',
+                            blue: '#3b82f6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1e1f22;
+            color: #dbdee1;
+        }
+        /* Custom Pitch background pattern */
+        .pitch-pattern {
+            background-color: #15803d;
+            background-image: 
+                radial-gradient(rgba(255,255,255,0.12) 15%, transparent 16%),
+                radial-gradient(rgba(255,255,255,0.12) 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+        }
+        /* Custom Glow & Shadows */
+        .glow-discord {
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.4);
+        }
+        .glow-red {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+        }
+        .glow-blue {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1f22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #35373c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5865F2;
+        }
+    </style>
+</head>
+<body class="bg-discord-dark text-slate-100 min-h-screen flex flex-col selection:bg-discord-accent selection:text-white relative">
+
+    <!-- Floating Discord CTA Button -->
+    <a href="https://discord.gg/JEBDMRzQBv" target="_blank" rel="noopener noreferrer"
+       class="fixed bottom-6 right-6 z-50 flex items-center space-x-3 bg-discord-accent hover:bg-indigo-600 text-white font-bold px-5 py-3.5 rounded-full shadow-2xl shadow-discord-accent/50 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white/20">
+        <i class="fa-brands fa-discord text-2xl animate-pulse"></i>
+        <span class="hidden sm:inline">Entrar a Discord</span>
+    </a>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-discord-main/95 backdrop-blur-md border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-red-600 via-amber-600 to-blue-600 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-futbol text-white text-xl animate-bounce"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-wider bg-gradient-to-r from-red-400 via-amber-200 to-blue-400 bg-clip-text text-transparent">Asado y Fernet</span>
+                    <span class="block text-xs font-medium text-slate-400 tracking-widest uppercase">HaxBall & Discord</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#inicio" class="text-slate-300 hover:text-discord-accent transition-colors">Inicio</a>
+                <a href="#caracteristicas" class="text-slate-300 hover:text-discord-accent transition-colors">Comunidad</a>
+                <a href="#reglas" class="text-slate-300 hover:text-discord-accent transition-colors">Reglamento</a>
+                <a href="#host" class="text-slate-300 hover:text-discord-accent transition-colors">Host de HaxBall</a>
+            </nav>
+
+            <!-- Discord CTA Button -->
+            <div class="flex items-center space-x-4">
+                <a href="https://discord.gg/JEBDMRzQBv" target="_blank" rel="noopener noreferrer" 
+                   class="hidden sm:inline-flex items-center space-x-2 bg-discord-accent hover:bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-discord-accent/25 hover:shadow-discord-accent/40 transition-all duration-300 hover:-translate-y-0.5">
+                    <i class="fa-brands fa-discord text-lg"></i>
+                    <span>Unirse al Discord</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl bg-discord-light text-slate-300 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-discord-main border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#inicio" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-discord-light hover:text-white">Inicio</a>
+            <a href="#caracteristicas" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-discord-light hover:text-white">Comunidad</a>
+            <a href="#reglas" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-discord-light hover:text-white">Reglamento</a>
+            <a href="#host" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-discord-light hover:text-white">Host de HaxBall</a>
+            <a href="https://discord.gg/JEBDMRzQBv" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center justify-center space-x-2 w-full bg-discord-accent text-white px-4 py-3 rounded-xl font-bold mt-3 shadow-lg">
+                <i class="fa-brands fa-discord text-xl"></i>
+                <span>Unirse al Servidor de Discord</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 bg-gradient-to-b from-discord-main via-discord-dark to-discord-dark">
+        <!-- Background Glow Orbs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 right-1/4 w-96 h-96 bg-green-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Hero Text -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-discord-light border border-slate-700/60 px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium text-emerald-400 shadow-sm">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Servidor Activo 24/7 • Host 3v3 Abierto • Comunidad Sana</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none text-white">
+                        Asado, Fernet y <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-500 bg-clip-text text-transparent">HaxBall</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        El punto de encuentro definitivo para tirar paredes perfectas, armar el asado con amigos, debatir tácticas y pasarla bien en nuestra gran comunidad de Discord. ¡Entrá a la cancha y demostrá tu nivel!
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="https://discord.gg/JEBDMRzQBv" target="_blank" rel="noopener noreferrer"
+                           class="w-full sm:w-auto flex items-center justify-center space-x-3 bg-discord-accent hover:bg-indigo-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-discord-accent/30 hover:shadow-discord-accent/50 transition-all duration-300 transform hover:-translate-y-1 text-base">
+                            <i class="fa-brands fa-discord text-2xl"></i>
+                            <span>Unirse a Discord Ahora</span>
+                        </a>
+
+                        <a href="https://www.haxball.com/play?c=pGsPd0z_FNE" target="_blank" rel="noopener noreferrer"
+                           class="w-full sm:w-auto flex items-center justify-center space-x-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-4 rounded-2xl border border-emerald-400/30 transition-all duration-300 text-base shadow-lg shadow-emerald-600/20">
+                            <i class="fa-solid fa-futbol text-xl"></i>
+                            <span>Entrar al Host HaxBall</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Highlights -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-white">100%</span>
+                            <span class="text-xs text-slate-400">Buena Onda</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-emerald-400">24/7</span>
+                            <span class="text-xs text-slate-400">Salas HaxBall</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-amber-400">🏆</span>
+                            <span class="text-xs text-slate-400">Torneos & Premios</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Visual Graphic (HaxBall & Discord Card) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md bg-discord-main p-6 rounded-3xl border border-slate-700/80 shadow-2xl glow-discord">
+                        <!-- Card Header -->
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-white text-sm sm:text-base">Asado y Fernet 🥩⚽</h3>
+                                    <p class="text-xs text-emerald-400 flex items-center space-x-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        <span>Servidor Oficial en Línea</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <span class="bg-discord-accent/20 text-discord-accent text-xs font-bold px-3 py-1 rounded-full">Discord</span>
+                        </div>
+
+                        <!-- Mini Pitch Preview in Card -->
+                        <div class="mt-5 rounded-2xl pitch-pattern h-48 relative border-2 border-white/20 overflow-hidden shadow-inner flex items-center justify-center">
+                            <!-- Center circle -->
+                            <div class="absolute w-20 h-20 rounded-full border-2 border-white/30"></div>
+                            <div class="absolute w-2 h-2 rounded-full bg-white/60"></div>
+                            <!-- Center line -->
+                            <div class="absolute h-full w-0.5 bg-white/30"></div>
+                            
+                            <!-- Goal posts -->
+                            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-16 border-r-2 border-y-2 border-white/60 rounded-r-lg"></div>
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-16 border-l-2 border-y-2 border-white/60 rounded-l-lg"></div>
+
+                            <!-- Avatars simulation -->
+                            <div class="absolute top-12 left-20 w-7 h-7 rounded-full bg-team-red glow-red flex items-center justify-center text-white text-xs font-bold border-2 border-white">AK</div>
+                            <div class="absolute bottom-12 right-20 w-7 h-7 rounded-full bg-team-blue glow-blue flex items-center justify-center text-white text-xs font-bold border-2 border-white">HM</div>
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white shadow-lg animate-bounce">⚽</div>
+                        </div>
+
+                        <!-- Card Footer info -->
+                        <div class="mt-5 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span>Canales de voz activos: <strong class="text-white">4</strong></span>
+                                <span>Partidos en curso: <strong class="text-emerald-400">Host 3v3</strong></span>
+                            </div>
+                            <a href="https://discord.gg/JEBDMRzQBv" target="_blank" rel="noopener noreferrer"
+                               class="block w-full text-center bg-discord-accent hover:bg-indigo-600 text-white font-bold py-3 rounded-xl transition shadow-lg text-sm">
+                                <i class="fa-brands fa-discord mr-2"></i> Unirme al Servidor Ahora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="caracteristicas" class="py-20 bg-discord-dark border-t border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-discord-accent font-bold text-sm tracking-wider uppercase bg-discord-accent/10 px-4 py-1.5 rounded-full border border-discord-accent/20">Nuestra Comunidad</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">¿Qué vas a encontrar acá?</h2>
+                <p class="text-slate-400 text-base sm:text-lg">Diseñado por y para fanáticos del HaxBall y las buenas juntadas. Todo lo que necesitas en un solo lugar.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1: Host 3v3 Todos los Días -->
+                <div class="bg-discord-main p-8 rounded-3xl border border-slate-800 hover:border-discord-accent/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Host 3v3 Todos los Días</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Salas públicas y privadas abiertas 24/7 con excelente ping, mapa clásico 3v3 y la mejor rotación de jugadores sin esperas.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Comunidad Sana & Amigos -->
+                <div class="bg-discord-main p-8 rounded-3xl border border-slate-800 hover:border-discord-accent/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-500/10 text-pink-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Comunidad Sana & Amigos</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Un espacio libre de toxicidad para conocer gente con buena onda, formar equipo, charlar de fútbol, asados y armar juntadas.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Canales de Voz -->
+                <div class="bg-discord-main p-8 rounded-3xl border border-slate-800 hover:border-discord-accent/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Canales de Voz & Juntadas</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Salas de voz dinámicas para hablar en vivo durante las partidas, debatir de la liga real y pasar el rato escuchando música.
+                    </p>
+                </div>
+
+                <!-- Feature 4: Rangos & Roles Exclusivos -->
+                <div class="bg-discord-main p-8 rounded-3xl border border-slate-800 hover:border-discord-accent/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Rangos & Roles Exclusivos</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Sube de nivel participando en el chat y en las partidas para desbloquear roles únicos como Asador Master y Capitán.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rules Section (Interactive Accordion) -->
+    <section id="reglas" class="py-20 bg-discord-light border-t border-slate-800/80">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-amber-400 font-bold text-sm tracking-wider uppercase bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20">Normas de Convivencia</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Reglamento del Servidor y Salas</h2>
+                <p class="text-slate-400 text-base">Para mantener la armonía, el respeto y asegurar que todos disfrutemos del HaxBall y las charlas, pedimos seguir estas sencillas reglas.</p>
+            </div>
+
+            <div class="space-y-4" id="accordion-container">
+                <!-- Rule 1 -->
+                <div class="bg-discord-main border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200">
+                    <button class="accordion-toggle w-full px-6 py-5 text-left font-bold text-lg text-white flex items-center justify-between hover:bg-discord-hover/50 focus:outline-none">
+                        <span class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-sm font-extrabold">1</span>
+                            <span>Respeto Mutuo y Cero Toxicidad</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content hidden px-6 pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-slate-800/60 pt-4">
+                        El insulto grave, la discriminación, el acoso o la toxicidad excesiva tanto en los canales de texto/voz como en las salas de HaxBall serán sancionados con mute o baneo directo. ¡Acá venimos a divertirnos y pasar un buen rato!
+                    </div>
+                </div>
+
+                <!-- Rule 2 -->
+                <div class="bg-discord-main border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200">
+                    <button class="accordion-toggle w-full px-6 py-5 text-left font-bold text-lg text-white flex items-center justify-between hover:bg-discord-hover/50 focus:outline-none">
+                        <span class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-extrabold">2</span>
+                            <span>Fair Play en las Salas de HaxBall</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content hidden px-6 pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-slate-800/60 pt-4">
+                        Prohibido hacer trampa (scripts ilegales, bug de AFK para molestar, arruinar partidos a propósito o tirar el host intencionalmente). Respeta el turno de juego en la sala.
+                    </div>
+                </div>
+
+                <!-- Rule 3 -->
+                <div class="bg-discord-main border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200">
+                    <button class="accordion-toggle w-full px-6 py-5 text-left font-bold text-lg text-white flex items-center justify-between hover:bg-discord-hover/50 focus:outline-none">
+                        <span class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-extrabold">3</span>
+                            <span>Uso Correcto de Canales</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content hidden px-6 pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-slate-800/60 pt-4">
+                        Usa cada canal para su fin correspondiente (memes en #memes, música en #comandos-bots, etc.). No satures los chats con spam masivo o links sospechosos.
+                    </div>
+                </div>
+
+                <!-- Rule 4 -->
+                <div class="bg-discord-main border border-slate-800 rounded-2xl overflow-hidden transition-all duration-200">
+                    <button class="accordion-toggle w-full px-6 py-5 text-left font-bold text-lg text-white flex items-center justify-between hover:bg-discord-hover/50 focus:outline-none">
+                        <span class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-extrabold">4</span>
+                            <span>¡Disfrutar del Asado y el Fernet!</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content hidden px-6 pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-slate-800/60 pt-4">
+                        La regla más importante: participa activamente, invita amigos, comparte tus mejores jugadas y mantén siempre la buena onda que caracteriza a esta comunidad.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Fictive HaxBall Match Visualizer Section -->
+    <section id="host" class="py-20 bg-discord-dark border-t border-slate-800/80">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-4">
+                <span class="text-emerald-400 font-bold text-sm tracking-wider uppercase bg-emerald-400/10 px-4 py-1.5 rounded-full border border-emerald-400/20">
+                    <i class="fa-solid fa-circle text-red-500 animate-pulse mr-1"></i> Transmisión Ficticia en Vivo
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Host de HaxBall</h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    Observa una demostración animada en tiempo real de cómo son las partidas en nuestras salas. ¡Entrá a la sala oficial para jugar de verdad!
+                </p>
+            </div>
+
+            <!-- Match Container -->
+            <div class="bg-discord-main p-4 sm:p-6 rounded-3xl border border-slate-800 shadow-2xl max-w-4xl mx-auto">
+                <!-- Live Scoreboard Header -->
+                <div class="flex flex-wrap items-center justify-between bg-discord-light px-6 py-4 rounded-2xl mb-4 border border-slate-700/60 gap-4">
+                    <!-- Red Team -->
+                    <div class="flex items-center space-x-3">
+                        <span class="w-4 h-4 rounded-full bg-team-red glow-red"></span>
+                        <div>
+                            <span class="font-black text-white text-base sm:text-lg tracking-wide block sm:inline">ASADO</span>
+                            <span class="text-xs text-slate-400 hidden sm:inline-block ml-1">(Rojo)</span>
+                        </div>
+                        <span id="demo-score-red" class="bg-red-500/20 text-red-400 font-black px-3.5 py-1 rounded-xl text-xl border border-red-500/30">0</span>
+                    </div>
+
+                    <!-- Timer & Status -->
+                    <div class="text-center">
+                        <div class="text-slate-300 font-mono text-sm sm:text-base font-bold bg-discord-dark px-4 py-1.5 rounded-xl border border-slate-700">
+                            ⏱️ <span id="demo-timer">00:00</span>
+                        </div>
+                        <span id="demo-status" class="text-[11px] font-semibold text-emerald-400 tracking-wider uppercase mt-1 block">PARTIDO EN CURSO</span>
+                    </div>
+
+                    <!-- Blue Team -->
+                    <div class="flex items-center space-x-3">
+                        <span id="demo-score-blue" class="bg-blue-500/20 text-blue-400 font-black px-3.5 py-1 rounded-xl text-xl border border-blue-500/30">0</span>
+                        <div class="text-right">
+                            <span class="font-black text-white text-base sm:text-lg tracking-wide block sm:inline">FERNET</span>
+                            <span class="text-xs text-slate-400 hidden sm:inline-block ml-1">(Azul)</span>
+                        </div>
+                        <span class="w-4 h-4 rounded-full bg-team-blue glow-blue"></span>
+                    </div>
+                </div>
+
+                <!-- Canvas Visualizer -->
+                <div class="relative w-full aspect-[2/1] rounded-2xl overflow-hidden border-2 border-white/20 pitch-pattern shadow-inner">
+                    <canvas id="demoCanvas" class="w-full h-full block"></canvas>
+                    
+                    <!-- Goal Flash Overlay Banner -->
+                    <div id="goal-banner" class="hidden absolute inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center transition-all duration-300">
+                        <div class="bg-gradient-to-r from-red-600 via-amber-500 to-blue-600 p-1 rounded-3xl shadow-2xl animate-bounce">
+                            <div class="bg-discord-dark px-8 py-4 rounded-[22px] text-center">
+                                <span class="text-3xl sm:text-5xl font-black text-amber-300 tracking-widest uppercase block drop-shadow">¡GOOOOL!</span>
+                                <span id="goal-author" class="text-slate-200 text-sm font-bold mt-1 block">Asado King anotó para el equipo Rojo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Players Roster Badge List -->
+                <div class="mt-4 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-slate-300">Equipo Rojo:</span>
+                        <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 rounded-lg font-semibold">🔴 Asado King</span>
+                        <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 rounded-lg font-semibold">🔴 Fernet</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-slate-300">Equipo Azul:</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-1 rounded-lg font-semibold">🔵 HaxMaster</span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-1 rounded-lg font-semibold">🔵 Pibe</span>
+                    </div>
+                </div>
+
+                <!-- Live Host Room Direct Button -->
+                <div class="mt-6 pt-2 text-center">
+                    <a href="https://www.haxball.com/play?c=pGsPd0z_FNE" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex items-center justify-center space-x-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-8 py-4 rounded-2xl text-base sm:text-lg shadow-xl shadow-emerald-600/30 hover:shadow-emerald-600/50 transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-auto border border-emerald-400/40">
+                        <i class="fa-solid fa-futbol text-2xl animate-spin" style="animation-duration: 8s;"></i>
+                        <span>Entrar a la Sala del Host en Tiempo Real</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                    </a>
+                    <p class="text-xs text-slate-400 mt-2">Link oficial directo a HaxBall: <code>https://www.haxball.com/play?c=pGsPd0z_FNE</code></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discord Community Banner CTA -->
+    <section class="py-20 bg-gradient-to-r from-indigo-900/40 via-discord-main to-discord-dark border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <span class="inline-flex items-center space-x-2 bg-discord-accent/20 text-discord-accent px-4 py-1.5 rounded-full text-sm font-bold border border-discord-accent/30">
+                <i class="fa-brands fa-discord"></i>
+                <span>Comunidad en Crecimiento</span>
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">¿Qué esperas para sumarte al asado?</h2>
+            <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
+                Uníte a nuestro servidor de Discord para conocer gente copada, participar en las próximas juntadas de HaxBall y disfrutar de las mejores charlas.
+            </p>
+            <div class="pt-4">
+                <a href="https://discord.gg/JEBDMRzQBv" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center space-x-3 bg-discord-accent hover:bg-indigo-600 text-white font-extrabold px-10 py-5 rounded-2xl text-lg shadow-2xl shadow-discord-accent/40 hover:shadow-discord-accent/60 transition-all duration-300 transform hover:-translate-y-1">
+                    <i class="fa-brands fa-discord text-2xl"></i>
+                    <span>Entrar al Discord (JEBDMRzQBv)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-discord-main border-t border-slate-800 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 to-blue-600 flex items-center justify-center text-white font-bold">
+                    <i class="fa-solid fa-futbol"></i>
+                </div>
+                <div>
+                    <span class="text-white font-bold text-base">Asado y Fernet</span>
+                    <span class="block text-xs text-slate-500">Comunidad HaxBall & Discord • 2026</span>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="#inicio" class="hover:text-white transition">Inicio</a>
+                <a href="#caracteristicas" class="hover:text-white transition">Comunidad</a>
+                <a href="#reglas" class="hover:text-white transition">Reglamento</a>
+                <a href="#host" class="hover:text-white transition">Host HaxBall</a>
+                <a href="https://discord.gg/JEBDMRzQBv" target="_blank" rel="noopener noreferrer" class="text-discord-accent hover:text-indigo-400 font-bold transition">Discord</a>
+            </div>
+
+            <div class="text-xs text-slate-500 text-center md:text-right">
+                <p>Hecho con pasión por y para la comunidad.</p>
+                <p class="mt-1">No afiliado oficialmente con HaxBall (creado por Mario Carbajal).</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Accordion Functionality for Rules
+        const accordions = document.querySelectorAll('.accordion-toggle');
+        accordions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('i');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+
+        // --- AUTOMATED FICTIVE HAXBALL MATCH DEMO (CANVAS 2D) ---
+        const canvas = document.getElementById('demoCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreRedEl = document.getElementById('demo-score-red');
+        const scoreBlueEl = document.getElementById('demo-score-blue');
+        const timerEl = document.getElementById('demo-timer');
+        const goalBanner = document.getElementById('goal-banner');
+        const goalAuthor = document.getElementById('goal-author');
+
+        let scoreRed = 0;
+        let scoreBlue = 0;
+        let elapsedSeconds = 0;
+        let goalPause = false;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Timer Loop
+        setInterval(() => {
+            if (!goalPause) {
+                elapsedSeconds++;
+                const mins = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
+                const secs = String(elapsedSeconds % 60).padStart(2, '0');
+                timerEl.textContent = `${mins}:${secs}`;
+            }
+        }, 1000);
+
+        // Fictive Ball & Players
+        const ball = { x: 0, y: 0, radius: 9, vx: 0, vy: 0, friction: 0.985 };
+
+        const players = [
+            // Team Red (ASADO)
+            { id: 1, name: "Asado King", short: "AK", team: "red", color: "#ef4444", role: "attacker", x: 0, y: 0, vx: 0, vy: 0, radius: 15, targetX: 0, targetY: 0, speed: 2.6 },
+            { id: 2, name: "Fernet", short: "FE", team: "red", color: "#ef4444", role: "defender", x: 0, y: 0, vx: 0, vy: 0, radius: 15, targetX: 0, targetY: 0, speed: 2.3 },
+            
+            // Team Blue (FERNET)
+            { id: 3, name: "HaxMaster", short: "HM", team: "blue", color: "#3b82f6", role: "attacker", x: 0, y: 0, vx: 0, vy: 0, radius: 15, targetX: 0, targetY: 0, speed: 2.6 },
+            { id: 4, name: "Pibe", short: "PI", team: "blue", color: "#3b82f6", role: "defender", x: 0, y: 0, vx: 0, vy: 0, radius: 15, targetX: 0, targetY: 0, speed: 2.3 }
+        ];
+
+        function resetDemoPositions() {
+            const w = canvas.width / window.devicePixelRatio;
+            const h = canvas.height / window.devicePixelRatio;
+
+            ball.x = w / 2;
+            ball.y = h / 2;
+            ball.vx = (Math.random() - 0.5) * 4;
+            ball.vy = (Math.random() - 0.5) * 4;
+
+            // Red positions
+            players[0].x = w * 0.35; players[0].y = h * 0.5;
+            players[1].x = w * 0.18; players[1].y = h * 0.5;
+
+            // Blue positions
+            players[2].x = w * 0.65; players[2].y = h * 0.5;
+            players[3].x = w * 0.82; players[3].y = h * 0.5;
+
+            players.forEach(p => { p.vx = 0; p.vy = 0; });
+        }
+
+        function triggerGoal(team, scorerName) {
+            goalPause = true;
+            if (team === "red") {
+                scoreRed++;
+                scoreRedEl.textContent = scoreRed;
+                goalAuthor.textContent = `¡${scorerName} anotó para ASADO (Rojo)!`;
+            } else {
+                scoreBlue++;
+                scoreBlueEl.textContent = scoreBlue;
+                goalAuthor.textContent = `¡${scorerName} anotó para FERNET (Azul)!`;
+            }
+
+            goalBanner.classList.remove('hidden');
+
+            setTimeout(() => {
+                goalBanner.classList.add('hidden');
+                resetDemoPositions();
+                goalPause = false;
+            }, 2200);
+        }
+
+        function updateAI() {
+            if (goalPause) return;
+
+            const w = canvas.width / window.devicePixelRatio;
+            const h = canvas.height / window.devicePixelRatio;
+
+            // Ball Physics
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            ball.vx *= ball.friction;
+            ball.vy *= ball.friction;
+
+            // Pitch goal posts boundaries
+            const goalTop = h / 2 - 40;
+            const goalBottom = h / 2 + 40;
+
+            // Wall Bounce (Top / Bottom)
+            if (ball.y - ball.radius < 0) { ball.y = ball.radius; ball.vy *= -0.85; }
+            if (ball.y + ball.radius > h) { ball.y = h - ball.radius; ball.vy *= -0.85; }
+
+            // Left Goal vs Left Wall Bounce
+            if (ball.x - ball.radius < 0) {
+                if (ball.y > goalTop && ball.y < goalBottom) {
+                    const scorer = players[2].name; // Blue scored
+                    triggerGoal("blue", scorer);
+                    return;
+                } else {
+                    ball.x = ball.radius;
+                    ball.vx *= -0.85;
+                }
+            }
+
+            // Right Goal vs Right Wall Bounce
+            if (ball.x + ball.radius > w) {
+                if (ball.y > goalTop && ball.y < goalBottom) {
+                    const scorer = players[0].name; // Red scored
+                    triggerGoal("red", scorer);
+                    return;
+                } else {
+                    ball.x = w - ball.radius;
+                    ball.vx *= -0.85;
+                }
+            }
+
+            // Move AI Players
+            players.forEach(p => {
+                let targetX = ball.x;
+                let targetY = ball.y;
+
+                if (p.role === "defender") {
+                    if (p.team === "red") {
+                        targetX = Math.min(ball.x - 20, w * 0.25);
+                    } else {
+                        targetX = Math.max(ball.x + 20, w * 0.75);
+                    }
+                    targetY = (ball.y + h / 2) / 2;
+                } else {
+                    // Attackers add subtle predictive offset
+                    targetX = ball.x + (ball.vx * 8);
+                    targetY = ball.y + (ball.vy * 8);
+                }
+
+                const dx = targetX - p.x;
+                const dy = targetY - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist > 2) {
+                    p.vx = (dx / dist) * p.speed;
+                    p.vy = (dy / dist) * p.speed;
+                }
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Player boundary limits
+                p.x = Math.max(p.radius, Math.min(w - p.radius, p.x));
+                p.y = Math.max(p.radius, Math.min(h - p.radius, p.y));
+
+                // Ball-Player Collisions
+                const bdx = ball.x - p.x;
+                const bdy = ball.y - p.y;
+                const bdist = Math.sqrt(bdx * bdx + bdy * bdy);
+
+                if (bdist < ball.radius + p.radius) {
+                    const angle = Math.atan2(bdy, bdx);
+                    let hitPower = 6.5 + Math.random() * 3.5;
+                    
+                    // Aim towards enemy goal if attacker
+                    if (p.role === "attacker") {
+                        const enemyGoalX = p.team === "red" ? w : 0;
+                        const enemyGoalY = h / 2 + (Math.random() - 0.5) * 30;
+                        const shotAngle = Math.atan2(enemyGoalY - ball.y, enemyGoalX - ball.x);
+                        ball.vx = Math.cos(shotAngle) * hitPower;
+                        ball.vy = Math.sin(shotAngle) * hitPower;
+                    } else {
+                        ball.vx = Math.cos(angle) * hitPower;
+                        ball.vy = Math.sin(angle) * hitPower;
+                    }
+                }
+            });
+
+            // Player-Player Collisions
+            for (let i = 0; i < players.length; i++) {
+                for (let j = i + 1; j < players.length; j++) {
+                    const p1 = players[i];
+                    const p2 = players[j];
+                    const pdx = p2.x - p1.x;
+                    const pdy = p2.y - p1.y;
+                    const pdist = Math.sqrt(pdx * pdx + pdy * pdy);
+
+                    if (pdist < p1.radius + p2.radius) {
+                        const overlap = (p1.radius + p2.radius) - pdist;
+                        const nx = pdx / (pdist || 1);
+                        const ny = pdy / (pdist || 1);
+
+                        p1.x -= nx * overlap * 0.5;
+                        p1.y -= ny * overlap * 0.5;
+                        p2.x += nx * overlap * 0.5;
+                        p2.y += ny * overlap * 0.5;
+                    }
+                }
+            }
+        }
+
+        function drawDemo() {
+            const w = canvas.width / window.devicePixelRatio;
+            const h = canvas.height / window.devicePixelRatio;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Pitch Field Markings
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.lineWidth = 3;
+
+            // Center Circle
+            ctx.beginPath();
+            ctx.arc(w / 2, h / 2, 55, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Center Dot
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(w / 2, h / 2, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Center Half Line
+            ctx.beginPath();
+            ctx.moveTo(w / 2, 0);
+            ctx.lineTo(w / 2, h);
+            ctx.stroke();
+
+            // Goal Posts Box Area
+            const goalTop = h / 2 - 40;
+            const goalHeight = 80;
+
+            // Left Goal (Red)
+            ctx.strokeRect(0, goalTop, 18, goalHeight);
+            // Right Goal (Blue)
+            ctx.strokeRect(w - 18, goalTop, 18, goalHeight);
+
+            // Outer Field Border
+            ctx.strokeRect(2, 2, w - 4, h - 4);
+
+            // Draw Players
+            players.forEach(p => {
+                ctx.save();
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 12;
+
+                // Avatar Body
+                ctx.fillStyle = p.color;
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+
+                // Player initials tag inside avatar
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 10px Inter, sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(p.short, p.x, p.y);
+
+                // Name tag above head
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 11px Inter, sans-serif";
+                ctx.shadowColor = "rgba(0,0,0,0.8)";
+                ctx.shadowBlur = 4;
+                ctx.fillText(p.name, p.x, p.y - p.radius - 6);
+                ctx.shadowBlur = 0;
+            });
+
+            // Draw Ball
+            ctx.save();
+            ctx.shadowColor = "rgba(255, 255, 255, 0.9)";
+            ctx.shadowBlur = 15;
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function demoLoop() {
+            updateAI();
+            drawDemo();
+            requestAnimationFrame(demoLoop);
+        }
+
+        // Initialize Fictive Match Demo
+        resetDemoPositions();
+        demoLoop();
+    </script>
+</body>
+</html>
